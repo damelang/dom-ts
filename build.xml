@@ -106,7 +106,7 @@ the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 
 
 
-<target name="gen-jsunit-no-validation" depends="get-xhtml1-dtd">
+<target name="gen-jsunit-no-validation">
         <property name="level" value="1"/>
         <property name="module" value="core"/>
     <property name="hideHTML" value="no"/>
@@ -305,7 +305,7 @@ This target checks that the output of that implied transform is valid HTML
 
 </target>
 
-<target name="gen-selfxhtml" depends="get-xhtml1-dtd">
+<target name="gen-selfxhtml">
         <property name="level" value="1"/>
         <property name="module" value="core"/>
         <property name="dst.dir" value="${build.dir}/self-hosted/xhtml/level${level}/${module}"/>
@@ -666,33 +666,6 @@ This target checks that the output of that implied transform is valid HTML
 
 <!--   DOM L1 Spec    -->
 
-<target name="get-xhtml1-dtd" depends="init" unless="xhtml1-dtd-available">
-    <mkdir dir="${lib.dir}/xhtml1-dtd"/>
-    <get src="http://www.w3.org/TR/xhtml1/DTD/xhtml1-frameset.dtd"
-        dest="${lib.dir}/xhtml1-dtd/xhtml1-frameset.dtd"
-        usetimestamp="yes"
-        ignoreerrors="${no-network}"/>
-    <get src="http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"
-        dest="${lib.dir}/xhtml1-dtd/xhtml1-transitional.dtd"
-        usetimestamp="yes"
-        ignoreerrors="${no-network}"/>
-    <get src="http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"
-        dest="${lib.dir}/xhtml1-dtd/xhtml1-strict.dtd"
-        usetimestamp="yes"
-        ignoreerrors="${no-network}"/>
-    <get src="http://www.w3.org/TR/xhtml1/DTD/xhtml-lat1.ent"
-        dest="${lib.dir}/xhtml1-dtd/xhtml-lat1.ent"
-        usetimestamp="yes"
-        ignoreerrors="${no-network}"/>
-    <get src="http://www.w3.org/TR/xhtml1/DTD/xhtml-symbol.ent"
-        dest="${lib.dir}/xhtml1-dtd/xhtml-symbol.ent"
-        usetimestamp="yes"
-        ignoreerrors="${no-network}"/>
-    <get src="http://www.w3.org/TR/xhtml1/DTD/xhtml-special.ent"
-        dest="${lib.dir}/xhtml1-dtd/xhtml-special.ent"
-        usetimestamp="yes"
-        ignoreerrors="${no-network}"/>
-</target>
 
 <!--  determines if DOM 1 spec files are already available locally  -->
 <target name="dom1-check-spec" depends="init">
@@ -1045,7 +1018,7 @@ This target checks that the output of that implied transform is valid HTML
 </target>
 
 
-<target name="dom1-html-validate-files" depends="dom1-html-validate-html-files, get-xhtml1-dtd">
+<target name="dom1-html-validate-files" depends="dom1-html-validate-html-files">
     <copy todir="${tests.dir}/level1/html/files">
                 <fileset dir="${lib.dir}/xhtml1-dtd"/>
     </copy>
@@ -1090,7 +1063,7 @@ This target checks that the output of that implied transform is valid HTML
         <copy todir="${applet.dest.dir}" file="java/applets/DOMTSApplet.dat"/>
 </target>
 
-<target name="dom1-html-gen-jsunit-base" depends="dom1-interfaces,dom1-dtd,get-xhtml1-dtd">
+<target name="dom1-html-gen-jsunit-base" depends="dom1-interfaces,dom1-dtd">
     <antcall target="gen-jsunit-no-validation">
         <param name="level" value="1"/>
         <param name="module" value="html"/>
@@ -1709,7 +1682,7 @@ This target checks that the output of that implied transform is valid HTML
 
 </target>
 
-<target name="dom2-html-validate-files" depends="dom1-html-validate-files, dom2-html-validate-html-files, get-xhtml1-dtd">
+<target name="dom2-html-validate-files" depends="dom1-html-validate-files, dom2-html-validate-html-files">
     <copy todir="${tests.dir}/level2/html/files">
                 <fileset dir="${lib.dir}/xhtml1-dtd"/>
     </copy>
@@ -1765,7 +1738,7 @@ This target checks that the output of that implied transform is valid HTML
 </target>
 
 
-<target name="dom2-html-gen-jsunit-base" depends="dom2-interfaces,dom1-dtd,dom2-dtd,get-xhtml1-dtd">
+<target name="dom2-html-gen-jsunit-base" depends="dom2-interfaces,dom1-dtd,dom2-dtd">
     <mkdir dir="${build.dir}/ecmascript/level2/html/files"/>
     <copy todir="${build.dir}/ecmascript/level2/html/files">
                 <fileset dir="tests/level1/html/files" excludes="*.bak"/>
@@ -1830,7 +1803,7 @@ This target checks that the output of that implied transform is valid HTML
 
 <target name="dom2-html-gen-jsunit" depends="jsunit-get, dom2-html-gen-jsunit-base"/>
 
-<target name="dom2-html-gen-selfhtml" depends="dom2-interfaces,dom1-dtd,dom2-dtd,get-xhtml1-dtd">
+<target name="dom2-html-gen-selfhtml" depends="dom2-interfaces,dom1-dtd,dom2-dtd">
         <style basedir="${tests.dir}/level1/html"
                destdir="${build.dir}/self-hosted/html/level2/html"
                includes="*.xml"
@@ -1887,7 +1860,7 @@ This target checks that the output of that implied transform is valid HTML
     <antcall target="fix-html-base-element-tests"/>
 </target>
 
-<target name="dom2-html-gen-selfxhtml" depends="dom2-interfaces,dom1-dtd,dom2-dtd,get-xhtml1-dtd">
+<target name="dom2-html-gen-selfxhtml" depends="dom2-interfaces,dom1-dtd,dom2-dtd">
         <style basedir="${tests.dir}/level1/html"
                destdir="${build.dir}/self-hosted/xhtml/level2/html"
                includes="*.xml"
@@ -2568,7 +2541,7 @@ This target checks that the output of that implied transform is valid HTML
 
 </target>
 
-<target name="dom3-core-validate-files" depends="get-xhtml1-dtd, dom3-core-schema-validate-files">
+<target name="dom3-core-validate-files" depends="dom3-core-schema-validate-files">
         <xmlvalidate lenient="no"
                      failonerror="yes"
                      classname="org.apache.xerces.parsers.SAXParser">
