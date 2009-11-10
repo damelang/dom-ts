@@ -68,6 +68,7 @@ the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 <target name="clean" depends="init">
         <delete dir="${build.dir}"/>
     <delete dir="${dist.dir}"/>
+    <delete dir="${specs.dir}"/>
     <delete>
         <fileset dir="tests" includes="**/dom?.dtd **/dom?.xsd **/test-to-html.xsl"/>
     </delete>
