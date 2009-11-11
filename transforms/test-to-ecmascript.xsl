@@ -31,7 +31,7 @@ saxon -o someTest.js someTest.xml test-to-ecmascript.xsl
 <xsl:stylesheet version="1.0" 
 	xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 	<!--  relative to transform   -->
-	<xsl:param name="interfaces-docname">..\build\dom1-interfaces.xml</xsl:param>
+	<xsl:param name="interfaces-docname">../build/dom1-interfaces.xml</xsl:param>
     <xsl:param name="target-uri-base"/>
 
 
